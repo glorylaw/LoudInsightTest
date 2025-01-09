@@ -50,10 +50,10 @@ process.nextTick is a microtask, which runs before moving to the next phase of t
 setTimeout is a macrotask, which executes in the Timers Phase.
 
 Phases of the Event Loop:
-Timers
-Pending Callbacks
-Idle/Prepare
-Poll (I/O events)
-Check (e.g., setImmediate)
-Close Callbacks
+Timers,
+Pending Callbacks,
+Idle/Prepare,
+Poll (I/O events),
+Check (e.g., setImmediate),
+Close Callbacks.
 This ordering ensures the proper functioning of the Node.js asynchronous model and explains why the announcements appear in the observed sequence.
