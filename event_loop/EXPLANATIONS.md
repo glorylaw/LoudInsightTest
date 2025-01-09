@@ -15,10 +15,10 @@ Expected Execution Order:
 "The bard sings a song": The file reading completes last in the event loop after all other synchronous tasks and timers.
 
 Final Output:
-The King has entered the court
-The court session has ended
-Your Majesty, there’s an urgent matter
-The jester performs an act
+The King has entered the court,
+The court session has ended,
+Your Majesty, there’s an urgent matter,
+The jester performs an act,
 The bard sings a song:  La la la la...lololololol 🎶
 
 Why They Appear in This Order:
@@ -27,6 +27,20 @@ process.nextTick runs immediately after the synchronous code completes, but befo
 setTimeout with a 0 ms delay is added to the task queue after process.nextTick, so it runs after that.
 File reading (fs.promises.readFile) is the most delayed task because it's an asynchronous operation, and its completion triggers a .then() callback after all other tasks in the event loop.
 By understanding the event loop and prioritization of tasks like process.nextTick and setTimeout, we can predict the output order and structure the message flow correctly.
+
+Explanation of the Output
+
+Synchronous Code:
+"The King has entered the court" and "The court session has ended" are logged first because synchronous operations are executed before anything else.
+process.nextTick:
+
+The king's advisor whispers immediately after the current synchronous operations are complete because process.nextTick callbacks are prioritized over other asynchronous operations.
+
+setTimeout:
+The jester's act (callback with setTimeout) is scheduled in the Timers Phase of the event loop and executed after process.nextTick.
+
+fs.promises.readFile:
+The bard sings last because fs.promises.readFile is a file system operation that uses the Poll Phase of the event loop. It resolves after all other pending tasks in the event loop.
 
 
 Key Concepts
