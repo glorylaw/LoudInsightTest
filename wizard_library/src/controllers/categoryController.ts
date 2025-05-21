@@ -16,7 +16,6 @@ const createCategory = async (req: Request, res: Response) => {
   }
 };
 
-// Add a subcategory
 const addSubcategory = async (req: Request, res: Response) => {
   const { parentId } = req.params;
   const { name } = req.body;
